@@ -1,0 +1,13 @@
+# System folders
+.gradle/
+AppData/
+build/
+out/
+node_modules/
+.vscode/
+.idea/
+*.log
+*.tmp
+*.class
+*.iml
+.DS_Store

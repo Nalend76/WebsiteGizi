@@ -1,0 +1,50 @@
+body {
+  font-family: Arial, sans-serif;
+  padding: 20px;
+  background-color: #f9f9f9;
+}
+
+header {
+  background-color: #4CAF50;
+  padding: 10px;
+  color: white;
+}
+
+nav a {
+  margin-right: 10px;
+  color: white;
+  text-decoration: none;
+}
+
+main {
+  background-color: white;
+  padding: 20px;
+  margin-top: 10px;
+  border-radius: 5px;
+}
+
+form input, form select {
+  margin: 5px 0;
+  padding: 5px;
+  width: 200px;
+}
+
+/* Responsive layout untuk layar kecil */
+@media (max-width: 600px) {
+  body {
+    padding: 10px;
+  }
+
+  form input, form select {
+    width: 100%;
+  }
+
+  nav a {
+    display: block;
+    margin: 5px 0;
+  }
+
+  main {
+    padding: 15px;
+  }
+}

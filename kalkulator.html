@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kalkulator Gizi</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Kalkulator Gizi Harian</h1>
+    <nav>
+      <a href="index.html">Beranda</a>
+      <a href="about.html">Tentang Gizi</a>
+      <a href="kalkulator.html">Kalkulator Gizi</a>
+      <a href="tips.html">Tips Gizi</a>
+    </nav>
+  </header>
+  <main>
+    <form id="giziForm">
+      <label>Usia (tahun): <input type="number" id="usia" required></label><br>
+      <label>Jenis Kelamin:
+        <select id="gender">
+          <option value="pria">Pria</option>
+          <option value="wanita">Wanita</option>
+        </select>
+      </label><br>
+      <label>Berat Badan (kg): <input type="number" id="berat" required></label><br>
+      <label>Tinggi Badan (cm): <input type="number" id="tinggi" required></label><br>
+      <label>Aktivitas Fisik:
+        <select id="aktivitas">
+          <option value="1.2">Ringan</option>
+          <option value="1.55">Sedang</option>
+          <option value="1.9">Berat</option>
+        </select>
+      </label><br>
+      <button type="submit">Hitung</button>
+    </form>
+
+    <div id="hasil"></div>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>
