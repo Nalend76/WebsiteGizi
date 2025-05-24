@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <title>Form Data Anak</title>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
+  <style>
+    body { font-family: Arial; padding: 2rem; background: #f2f6ff; }
+    input, select, button { margin: 0.5rem 0; padding: 0.5rem; width: 100%; max-width: 400px; }
+    .result { margin-top: 1rem; font-weight: bold; }
+  </style>
+</head>
+<body>
+
+  <h2>Form Pengisian Data Anak</h2>
+  <input type="text" id="nama" placeholder="Nama Anak" required />
+  <input type="number" id="umur" placeholder="Umur (bulan)" required />
+  <input type="number" id="tinggi" placeholder="Tinggi Badan (cm)" required />
+  <select id="jenisKelamin">
+    <option value="L">Laki-laki</option>
+    <option value="P">Perempuan</option>
+  </select>
+  <input type="text" id="posyandu" placeholder="Nama Posyandu" required />
+  <button onclick="submitData()">Simpan & Deteksi</button>
+
+  <div class="result" id="hasil"></div>
+
+  <script>
+    // KONFIGURASI FIREBASE (ganti dengan kredensial proyek kamu)
+    const firebaseConfig = {
+      apiKey: "YOUR_API_KEY",
+      authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+      databaseURL: "https://YOUR_PROJECT_ID.firebaseio.com",
+      projectId: "YOUR_PROJECT_ID",
+      storageBucket: "YOUR_PROJECT_ID.appspot.com",
+      messagingSenderId: "YOUR_SENDER_ID",
+      appId: "YOUR_APP_ID"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+
+    function submitData() {
+      const nama = document.getElementById("nama").value;
+      const umur = parseInt(document.getElementById("umur").value);
+      const tinggi = parseFloat(document.getElementById("tinggi").value);
+      const jenisKelamin = document.getElementById("jenisKelamin").value;
+      const posyandu = document.getElementById("posyandu").value;
+
+      // Simpangan baku & median WHO untuk 24 bulan sebagai contoh
+      let median = jenisKelamin === 'L' ? 87.1 : 85.7;
+      let sd = 3.2;
+      let z = (tinggi - median) / sd;
+
+      let status = 'Sehat';
+      if (z < -3) status = 'Severe Stunting';
+      else if (z < -2) status = 'Stunting';
+
+      const hasil = {
+        nama,
+        umur,
+        tinggi,
+        jenisKelamin,
+        posyandu,
+        zscore: z.toFixed(2),
+        status
+      };
+
+      db.ref('anak').push(hasil);
+     document.getElementById("hasil").innerText = `Status: ${status} (Z = ${z.toFixed(2)})`;
+
+    }
+  </script>
+</body>
+</html>

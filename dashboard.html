@@ -1,112 +1,146 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dashboard KIA - DEDEL</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard Pemantauan SIPANDU</title>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
-      background-color: #f4f8f9;
       margin: 0;
-      padding: 0;
+      background: #f0f6ff;
     }
     header {
-      background-color: #00695c;
-      color: white;
+      background-color: #0077b6;
       padding: 1rem;
+      color: white;
       text-align: center;
     }
-    .container {
+    .dashboard {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
       padding: 2rem;
+      justify-content: center;
     }
     .card {
       background-color: white;
-      border-radius: 16px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+      border-radius: 1rem;
       padding: 1.5rem;
-      margin-bottom: 2rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      flex: 1 1 300px;
+      max-width: 500px;
     }
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1.5rem;
-    }
-    h2 {
-      margin-top: 0;
+    .card h3 {
+      margin-bottom: 1rem;
       color: #333;
     }
-    canvas {
-      max-width: 100%;
+    .metric {
+      font-size: 2rem;
+      color: #0077b6;
+      font-weight: bold;
+    }
+    ul {
+      padding-left: 1.2rem;
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Dashboard DEDEL - Pemantauan Kesehatan Ibu & Anak</h1>
-  </header>
-  <div class="container">
-    <div class="grid">
-      <div class="card">
-        <h2>Status Gizi Anak</h2>
-        <canvas id="statusChart"></canvas>
-      </div>
-      <div class="card">
-        <h2>Tren Stunting Wilayah</h2>
-        <canvas id="trendChart"></canvas>
-      </div>
-      <div class="card">
-        <h2>Jumlah Anak Dipantau</h2>
-        <p style="font-size: 2rem; font-weight: bold; color: #00695c;">1.240 Anak</p>
-      </div>
-      <div class="card">
-        <h2>Posyandu Terpantau</h2>
-        <p style="font-size: 2rem; font-weight: bold; color: #ffb300;">34 Posyandu</p>
-      </div>
-    </div>
+
+<header>
+  <h1>Dashboard Pemantauan SIPANDU</h1>
+</header>
+
+<div class="dashboard">
+  <!-- Total Anak -->
+  <div class="card">
+    <h3>Total Anak yang Dipantau</h3>
+    <div class="metric" id="totalAnak">1.250 Anak</div>
   </div>
 
-  <script>
-    const statusCtx = document.getElementById('statusChart').getContext('2d');
-    new Chart(statusCtx, {
-      type: 'doughnut',
-      data: {
-        labels: ['Sehat', 'Risiko KEK', 'Stunting'],
-        datasets: [{
-          data: [65, 20, 15],
-          backgroundColor: ['#4caf50', '#ffeb3b', '#f44336'],
-        }]
-      },
-      options: {
-        responsive: true,
-        plugins: {
-          legend: { position: 'bottom' }
-        }
-      }
-    });
+  <!-- Total Posyandu -->
+  <div class="card">
+    <h3>Jumlah Posyandu Terlibat</h3>
+    <div class="metric" id="totalPosyandu">54 Posyandu</div>
+  </div>
 
-    const trendCtx = document.getElementById('trendChart').getContext('2d');
-    new Chart(trendCtx, {
-      type: 'line',
-      data: {
-        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
-        datasets: [{
-          label: 'Jumlah Kasus Stunting',
-          data: [30, 42, 38, 45, 50],
-          borderColor: '#f44336',
-          backgroundColor: 'rgba(244,67,54,0.2)',
-          fill: true,
-          tension: 0.4
-        }]
-      },
-      options: {
-        responsive: true,
-        plugins: {
-          legend: { position: 'top' }
+  <!-- Donut Chart -->
+  <div class="card">
+    <h3>Status Gizi Anak</h3>
+    <canvas id="statusGiziChart" width="300" height="300"></canvas>
+  </div>
+
+  <!-- Grafik Tren -->
+  <div class="card">
+    <h3>Tren Stunting per Bulan</h3>
+    <canvas id="trenStuntingChart" width="400" height="250"></canvas>
+  </div>
+
+  <!-- Wilayah Rawan -->
+  <div class="card">
+    <h3>Wilayah Rawan Stunting</h3>
+    <ul>
+      <li>Desa Maju Jaya</li>
+      <li>Kelurahan Sehat Makmur</li>
+      <li>RW 05 – Cempaka Putih</li>
+    </ul>
+  </div>
+</div>
+
+<script>
+  // Donut Chart
+  const ctxDonut = document.getElementById('statusGiziChart').getContext('2d');
+  new Chart(ctxDonut, {
+    type: 'doughnut',
+    data: {
+      labels: ['Sehat', 'Stunting'],
+      datasets: [{
+        label: 'Status Gizi Anak',
+        data: [950, 300],
+        backgroundColor: ['#48cae4', '#ff6b6b'],
+        hoverOffset: 10
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: {
+          position: 'bottom'
         }
       }
-    });
-  </script>
+    }
+  });
+
+  // Line Chart
+  const ctxLine = document.getElementById('trenStuntingChart').getContext('2d');
+  new Chart(ctxLine, {
+    type: 'line',
+    data: {
+      labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun'],
+      datasets: [{
+        label: 'Jumlah Anak Stunting',
+        data: [290, 280, 310, 300, 270, 250],
+        borderColor: '#ff6b6b',
+        backgroundColor: 'rgba(255,107,107,0.2)',
+        fill: true,
+        tension: 0.3
+      }]
+    },
+    options: {
+      responsive: true,
+      scales: {
+        y: {
+          beginAtZero: true,
+          title: {
+            display: true,
+            text: 'Jumlah Anak'
+          }
+        }
+      }
+    }
+  });
+</script>
+
 </body>
 </html>

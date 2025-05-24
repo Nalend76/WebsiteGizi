@@ -8,17 +8,64 @@
 </head>
 <body>
   <header>
-    <h1>Selamat Datang di Website Gizi</h1>
-    <nav>
-      <a href="index.html">Beranda</a>
-      <a href="dashboard.html">Dashboard KIA</a>
-      <a href="about.html">Tentang Gizi</a>
-      <a href="kalkulator.html">Kalkulator Gizi</a>
-      <a href="tips.html">Tips Gizi</a>
+    <h1>Gizi Seimbang untuk Masa Depan Cerah</h1>
+    <p class="slogan">Cegah Stunting, Wujudkan Potensi Generasi Gemilang</p>
     </nav>
   </header>
+
   <main>
-    <p>Website ini dibuat untuk membantu kamu memahami dan menghitung kebutuhan gizi harianmu.</p>
+    <section class="intro">
+      <img src="assets/hero-gizi.jpg" alt="Ilustrasi Gizi Anak" />
+      <div class="intro-text">
+        <p>Website ini dibuat untuk membantumu memahami pentingnya gizi seimbang dalam tumbuh kembang anak. Yuk, jaga kesehatan si kecil dengan informasi yang tepat!</p>
+      </div>
+    </section>
   </main>
+
+  <footer>
+    <p>&copy; 2025 SIPANDU - Gizi Seimbang Indonesia</p>
+  </footer>
+</body>
+</html>
+<header class="header">
+  <a href="index.html" class="logo">
+    <img src="sipandu_logo_embedded.svg" alt="Logo SIPANDU" />
+  </a>
+  <!-- Navigasi lainnya bisa ditambahkan di sini -->
+</header>
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SIPANDU</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="navbar">
+    <div class="navbar-container">
+      <a href="index.html" class="logo">
+        <img src="sipandu_logo_embedded.svg" alt="Logo SIPANDU">
+      </a>
+      <button class="menu-toggle" id="menu-toggle">&#9776;</button>
+      <nav class="nav-links" id="nav-links">
+        <a href="index.html">Beranda</a>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="kalkulator.html">Kalkulator Gizi</a>
+        <a href="tips.html">Edu Gizi</a>
+        <a href="about.html">Resep</a>
+      </nav>
+    </div>
+  </header>
+
+  <script>
+    const toggleBtn = document.getElementById('menu-toggle');
+    const navLinks = document.getElementById('nav-links');
+
+    toggleBtn.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+    });
+  </script>
 </body>
 </html>
